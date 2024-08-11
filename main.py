@@ -5,7 +5,7 @@
 N = 100
 
 # Probability that a dipole starts off in the +1 state
-thresh = 0.75
+thresh = 0.5
 
 # Exchange energy constant (Arbitrary Units)
 J = 1
