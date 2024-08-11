@@ -25,7 +25,7 @@ fps = 60
 nframes = 200
 
 # Save all simulated frames?
-save_frames = False
+save_frames = True
 
 '''--------------------------------------------'''
 
@@ -33,7 +33,7 @@ save_frames = False
 import numpy as np
 from scipy import ndimage
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation  
+import matplotlib.animation as animation 
 
 ''' FUNCTIONS '''
 
@@ -119,11 +119,16 @@ def animate_ising(lattice_frames, nframes = 1000, fps=60):
 
 	fig = plt.figure()  
 	lat = plt.imshow(lattice)
-	anim = FuncAnimation(fig, animate,
+	anim = animation.FuncAnimation(fig, animate,
 	                     frames = nframes, interval = int(1000/fps), fargs = [lattice_frames, lat, nframes])
-	plt.show()	
+	#plt.show()	
+
+
+	# saving to m4 using ffmpeg writer 
+	writervideo = animation.FFMpegWriter(fps) 
+	anim.save('ising.gif', writer=writervideo) 
 
 if __name__ == "__main__":
 	lattice_frames = simulate(n, save_frames)
-	print(lattice_frames)
-	#animate_ising(lattice_frames, nframes)
+	#print(lattice_frames)
+	animate_ising(lattice_frames, nframes)
